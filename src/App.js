@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/navbar";
 import Products from "./components/products";
 import Posts from "./components/posts";
@@ -14,6 +14,20 @@ class App extends Component {
     return (
       <div>
         <NavBar />
+        <div className="content">
+          {/* Adding switch will no longer need exact keyword */}
+          <Switch>
+            <Route path={"/products/:id"} component={ProductDetails} />
+            <Route
+              path={"/products"}
+              //adding props in routing need render method
+              render={(props) => <Products sortBy="newest" {...props} />}
+            />
+            <Route path={"/posts/:year/:month"} component={Posts} />
+            <Route path={"/admin"} component={Dashboard} />
+            <Route path={"/"} component={Home} />
+          </Switch>
+        </div>
       </div>
     );
   }
